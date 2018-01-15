@@ -1,5 +1,11 @@
-FROM xennis/alpine:3.6
+FROM xennis/alpine
+
+ARG VERSION_ALPINE=8.151.12-r0
+ARG VERSION_MAJOR=8
+
 ENV LANG="C.UTF-8" \
-    JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk" \
+    JAVA_HOME="/usr/lib/jvm/java-1.${VERSION_MAJOR}-openjdk" \
     PATH="${PATH}:${JAVA_HOME}/bin"
-RUN apk add --no-cache --update openjdk8=8.131.11-r2
+
+RUN apk --no-cache --update upgrade \
+    && apk --no-cache add openjdk${VERSION_MAJOR}=${VERSION_ALPINE}
